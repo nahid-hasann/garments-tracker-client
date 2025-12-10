@@ -3,7 +3,6 @@ import { AuthContext } from './AuthContext';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../firebase.init';
 import { TbUrgent } from 'react-icons/tb';
-import axios from 'axios';
 // import { GoogleAuthProvider } from 'firebase/auth/web-extension';
 
 const provider = new GoogleAuthProvider();

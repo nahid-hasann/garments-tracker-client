@@ -117,7 +117,7 @@ const ProductDetails = () => {
     };
 
     const handleOrderSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // form reload বন্ধ
 
         if (!user) {
             toast.error("Please login to place order.");
@@ -128,7 +128,7 @@ const ProductDetails = () => {
         const stockNum = Number(availableQuantity) || 0;
         const minNum = Number(minOrderQty) || 0;
 
-        // quantity validation
+        // validation: quantity check
         if (isNaN(qtyNum) || qtyNum <= 0) {
             toast.error("Please enter a valid quantity.");
             return;
@@ -140,14 +140,17 @@ const ProductDetails = () => {
         }
 
         if (stockNum && qtyNum > stockNum) {
-            toast.error(`Quantity cannot be larger than available stock (${stockNum}).`);
+            toast.error(
+                `Quantity cannot be larger than available stock (${stockNum}).`
+            );
             return;
         }
 
         const totalPrice = (Number(price) || 0) * qtyNum;
 
         const order = {
-            buyerName: `${firstName} ${lastName}`.trim() || user.displayName || "Buyer",
+            buyerName:
+                `${firstName} ${lastName}`.trim() || user.displayName || "Buyer",
             buyerEmail: user.email,
             productId: product._id,
             productName: product.name,
@@ -156,30 +159,35 @@ const ProductDetails = () => {
             contactNumber: phone,
             address,
             notes: message,
-            paymentMethod: paymentMethodForOrder,              // "Cash on Delivery" / "PayFirst"
-            paymentStatus: requiresOnlinePayment ? "unpaid" : "cod",
-            status: "pending",                                 // PayFirst case এ পরে override হবে
+            paymentMethod: paymentMethodForOrder, // "Cash on Delivery" / "PayFirst"
+            paymentStatus: requiresOnlinePayment ? "unpaid" : "cod", // later Stripe হলে "paid"
+            status: "pending",
             createdAt: new Date(),
         };
 
-        // 🔹 PayFirst হলে → আগে payment page
         if (requiresOnlinePayment) {
             navigate("/dashboard/payment", { state: { orderData: order } });
             setOpenModal(false);
             return;
-        }
+          }
 
-        // 🔹 Cash on Delivery হলে → direct DB তে
         try {
             const res = await axios.post("http://localhost:8000/orders", order);
 
             if (res.data.insertedId) {
-                toast.success("Order placed successfully (Cash on Delivery)!");
+                // যদি online payment লাগে → payment page-এ পাঠাব
+                if (requiresOnlinePayment) {
+                    toast.success("Order created. Redirecting to payment...");
+                    // তুমি পরে এই route বানাবে: /dashboard/payment/:id
+                    navigate(`/dashboard/payment/${res.data.insertedId}`);
+                } else {
+                    toast.success("Order placed successfully (Cash on Delivery)!");
+                }
             } else {
                 toast.success("Order submitted!");
             }
 
-            // reset
+            // modal close + reset
             setOpenModal(false);
             setFirstName("");
             setLastName("");
@@ -193,7 +201,6 @@ const ProductDetails = () => {
             toast.error("Failed to place order");
         }
     };
-      
 
     return (
         <div className="max-w-5xl mx-auto space-y-6">

@@ -8,11 +8,9 @@ import { Helmet } from "react-helmet-async";
 const ProductDetails = () => {
     const { id } = useParams(); // /products/:id theke id pabo
     const navigate = useNavigate();
-
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-
     const [openModal, setOpenModal] = useState(false);
 
     // booking form states
@@ -24,12 +22,8 @@ const ProductDetails = () => {
     const [address, setAddress] = useState("");
     const [message, setMessage] = useState("");
 
-    // 🔹 DB user status (pending/active/suspended)
-    const [userStatus, setUserStatus] = useState("pending");
-
     const { user, role } = useAuth();
 
-    // 👉 product load
     useEffect(() => {
         const loadProduct = async () => {
             try {
@@ -46,25 +40,6 @@ const ProductDetails = () => {
 
         loadProduct();
     }, [id]);
-
-    // 👉 logged in user-er DB status load (users collection theke)
-    useEffect(() => {
-        const loadDbUser = async () => {
-            if (!user?.email) return;
-
-            try {
-                const res = await axios.get(
-                    `http://localhost:8000/users?email=${user.email}`
-                );
-                setUserStatus(res.data?.status || "pending");
-            } catch (err) {
-                console.error("Failed to load db user:", err);
-                setUserStatus("pending");
-            }
-        };
-
-        loadDbUser();
-    }, [user?.email]);
 
     if (loading) {
         return (
@@ -103,29 +78,30 @@ const ProductDetails = () => {
     } = product;
 
     // fallback fields (quantity / minimumOrder / paymentMode)
+    // fallback fields (quantity / minimumOrder / paymentMode)
     const availableQuantity = availableQty ?? product.quantity ?? 0;
     const minOrderQty = minQty ?? product.minimumOrder ?? 0;
     const rawPaymentMode = product.paymentMode ?? paymentOptions ?? "not-set";
 
-    // payment info derive
     let paymentInfoText = "Payment method will be defined by manager.";
     let requiresOnlinePayment = false;
     let paymentMethodForOrder = "Not set";
 
+    // ✅ ei line ta change: payfirst + payfast duita support korbo
     if (/payfirst|payfast/i.test(rawPaymentMode)) {
         paymentInfoText = "PayFirst – online payment";
         requiresOnlinePayment = true;
-        paymentMethodForOrder = "PayFirst";
+        paymentMethodForOrder = "PayFirst";      // DB te ei নামেই রাখো future e
     } else if (/cash/i.test(rawPaymentMode) || rawPaymentMode === "cod") {
         paymentInfoText = "Cash on Delivery";
         requiresOnlinePayment = false;
         paymentMethodForOrder = "Cash on Delivery";
     }
 
-    // 👉 role + status ভিত্তিক permission
+
+    // role অনুযায়ী – শুধুই buyer order দিতে পারবে
     const isBuyer = role === "buyer";
-    const isActive = userStatus === "active";
-    const canOrder = !!user && isBuyer && isActive;
+    const canOrder = !!user && isBuyer;
 
     // quantity change hole price auto calculate
     const handleQuantityChange = (e) => {
@@ -143,15 +119,10 @@ const ProductDetails = () => {
     };
 
     const handleOrderSubmit = async (e) => {
-        e.preventDefault(); // form reload বন্ধ
+        e.preventDefault();
 
         if (!user) {
             toast.error("Please login to place order.");
-            return;
-        }
-
-        if (!canOrder) {
-            toast.error("You are not allowed to place orders.");
             return;
         }
 
@@ -159,7 +130,7 @@ const ProductDetails = () => {
         const stockNum = Number(availableQuantity) || 0;
         const minNum = Number(minOrderQty) || 0;
 
-        // validation: quantity check
+        // quantity validation
         if (isNaN(qtyNum) || qtyNum <= 0) {
             toast.error("Please enter a valid quantity.");
             return;
@@ -171,17 +142,14 @@ const ProductDetails = () => {
         }
 
         if (stockNum && qtyNum > stockNum) {
-            toast.error(
-                `Quantity cannot be larger than available stock (${stockNum}).`
-            );
+            toast.error(`Quantity cannot be larger than available stock (${stockNum}).`);
             return;
         }
 
         const totalPrice = (Number(price) || 0) * qtyNum;
 
         const order = {
-            buyerName:
-                `${firstName} ${lastName}`.trim() || user.displayName || "Buyer",
+            buyerName: `${firstName} ${lastName}`.trim() || user.displayName || "Buyer",
             buyerEmail: user.email,
             productId: product._id,
             productName: product.name,
@@ -190,20 +158,20 @@ const ProductDetails = () => {
             contactNumber: phone,
             address,
             notes: message,
-            paymentMethod: paymentMethodForOrder, // "Cash on Delivery" / "PayFirst"
-            paymentStatus: requiresOnlinePayment ? "unpaid" : "cod", // later Stripe হলে "paid"
-            status: "pending",
+            paymentMethod: paymentMethodForOrder,              // "Cash on Delivery" / "PayFirst"
+            paymentStatus: requiresOnlinePayment ? "unpaid" : "cod",
+            status: "pending",                                 // PayFirst case এ পরে override হবে
             createdAt: new Date(),
         };
 
-        // যদি online payment লাগে → আগে payment page e যাও
+        // 🔹 PayFirst হলে → আগে payment page
         if (requiresOnlinePayment) {
-            navigate("/payment", { state: { orderData: order } });
+            navigate("/dashboard/payment", { state: { orderData: order } });
             setOpenModal(false);
             return;
         }
 
-        // Cash on Delivery হলে direct order save
+        // 🔹 Cash on Delivery হলে → direct DB তে
         try {
             const res = await axios.post("http://localhost:8000/orders", order);
 
@@ -213,7 +181,7 @@ const ProductDetails = () => {
                 toast.success("Order submitted!");
             }
 
-            // modal close + reset
+            // reset
             setOpenModal(false);
             setFirstName("");
             setLastName("");
@@ -227,17 +195,7 @@ const ProductDetails = () => {
             toast.error("Failed to place order");
         }
     };
-
-    // 👉 Button text different case অনুযায়ী
-    const getOrderButtonText = () => {
-        if (!user) return "Login to place order";
-        if (!isBuyer) return "Only buyers can place order";
-        if (userStatus === "pending") return "Account pending approval";
-        if (userStatus === "suspended" || userStatus === "blocked")
-            return "Account suspended";
-        if (!isActive) return "Account not active";
-        return "Book / Place Order";
-    };
+      
 
     return (
         <div className="max-w-5xl mx-auto space-y-6">
@@ -351,7 +309,9 @@ const ProductDetails = () => {
                                     : "bg-slate-200 text-slate-500 cursor-not-allowed"
                                 }`}
                         >
-                            {getOrderButtonText()}
+                            {canOrder
+                                ? "Book / Place Order"
+                                : "Only buyers can place order"}
                         </button>
 
                         <button
@@ -362,11 +322,10 @@ const ProductDetails = () => {
                         </button>
                     </div>
 
-                    {!canOrder && user && (
+                    {!canOrder && (
                         <p className="text-[11px] text-orange-500">
-                            Note: শুধুমাত্র <b>buyer + active</b> account order করতে পারবে।
-                            Manager/Admin বা pending/suspended account দিয়ে নতুন order করা যাবে
-                            না।
+                            Note: Managers/Admins are not allowed to place orders. Please use a
+                            buyer account.
                         </p>
                     )}
                 </div>

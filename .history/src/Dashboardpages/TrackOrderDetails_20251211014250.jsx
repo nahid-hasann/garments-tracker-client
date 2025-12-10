@@ -18,7 +18,7 @@ const TrackOrderDetails = () => {
     } = useQuery({
         queryKey: ["order-track", orderId],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/orders/${orderId}`);
+            const res = await axiosSecure.get(`http://localhost:8000/orders/${orderId}`);
             return res.data;
         },
     });

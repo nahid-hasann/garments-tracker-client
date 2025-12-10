@@ -5,11 +5,10 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../Hook /useAuth";
 import { Helmet } from "react-helmet-async";
-import useAxiosSecure from "../Hook /useAxiosSecure";
 
 const ApprovedOrders = () => {
     const { user } = useAuth();
-    const axiosSecure = useAxiosSecure();
+    const axi
 
     const {
         data: orders = [],
@@ -20,7 +19,7 @@ const ApprovedOrders = () => {
     } = useQuery({
         queryKey: ["approved-orders"],
         queryFn: async () => {
-            const res = await axiosSecure.get("/orders/approved");
+            const res = await axios.get("http://localhost:8000/orders/approved");
             return res.data;
         },
     });

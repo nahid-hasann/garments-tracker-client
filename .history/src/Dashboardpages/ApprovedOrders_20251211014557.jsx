@@ -9,7 +9,7 @@ import useAxiosSecure from "../Hook /useAxiosSecure";
 
 const ApprovedOrders = () => {
     const { user } = useAuth();
-    const axiosSecure = useAxiosSecure();
+    const axiosSecure = useAxiosSecure()
 
     const {
         data: orders = [],
@@ -20,7 +20,7 @@ const ApprovedOrders = () => {
     } = useQuery({
         queryKey: ["approved-orders"],
         queryFn: async () => {
-            const res = await axiosSecure.get("/orders/approved");
+            const res = await axios.get("http://localhost:8000/orders/approved");
             return res.data;
         },
     });

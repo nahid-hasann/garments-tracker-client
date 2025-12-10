@@ -4,12 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
 import useAuth from "../Hook /useAuth";
-import useAxiosSecure from "../Hook /useAxiosSecure";
 
 const TrackOrderDetails = () => {
     const { orderId } = useParams();
     const { user } = useAuth();
-    const axiosSecure = useAxiosSecure();
+    const axi
 
     const {
         data: order,
@@ -18,7 +17,7 @@ const TrackOrderDetails = () => {
     } = useQuery({
         queryKey: ["order-track", orderId],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/orders/${orderId}`);
+            const res = await axios.get(`http://localhost:8000/orders/${orderId}`);
             return res.data;
         },
     });

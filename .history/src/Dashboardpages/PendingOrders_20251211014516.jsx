@@ -13,7 +13,7 @@ const PendingOrders = () => {
     const { data: orders = [], isLoading, refetch } = useQuery({
         queryKey: ['all-orders'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/orders/all');
+            const res = await axios.get('http://localhost:8000/orders/all');
             return res.data;
         }
     });

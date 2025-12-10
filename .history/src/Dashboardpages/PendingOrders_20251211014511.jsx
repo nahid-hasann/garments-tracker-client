@@ -3,17 +3,16 @@ import axios from 'axios';
 // import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
-import useAxiosSecure from '../Hook /useAxiosSecure';
 
 const PendingOrders = () => {
 
-    const axiosSecure = useAxiosSecure();
+    const axi
 
 
     const { data: orders = [], isLoading, refetch } = useQuery({
         queryKey: ['all-orders'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/orders/all');
+            const res = await axios.get('http://localhost:8000/orders/all');
             return res.data;
         }
     });

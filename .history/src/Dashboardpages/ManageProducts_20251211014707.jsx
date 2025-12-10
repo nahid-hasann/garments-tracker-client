@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-// import axios from 'axios'; // ❌ এটা আর লাগবে না, axiosSecure ব্যবহার করব
+import axios from 'axios';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
-import useAxiosSecure from '../Hook /useAxiosSecure'; // আপনার পাথ অনুযায়ী
+import useAxiosSecure from '../Hook /useAxiosSecure';
 
 const ManageProducts = () => {
 
@@ -12,8 +12,10 @@ const ManageProducts = () => {
     const [category, setCategory] = useState("all");
     const axiosSecure = useAxiosSecure();
 
+
+
     const {
-        data: productData = {}, // ✅ নাম বদলিয়ে productData দিলাম (কারণ এটা এখন Object)
+        data: products = [],
         isLoading,
         isError,
         error,
@@ -22,22 +24,21 @@ const ManageProducts = () => {
         queryKey: ["manage-products"],
         queryFn: async () => {
             const res = await axiosSecure.get("/products");
-            return res.data; // সার্ভার রিটার্ন করছে { products: [], total: ... }
+            return res.data;
         },
     });
-
-    // ✅ অবজেক্ট থেকে আসল অ্যারে বের করে নিলাম
-    const products = productData.products || [];
 
     const filteredProducts = products.filter((p) => {
         const name = (p.name || "").toLowerCase();
         const cat = (p.category || "").toLowerCase();
         const term = search.toLowerCase().trim();
 
+        // category filter
         if (category !== "all" && cat !== category.toLowerCase()) {
             return false;
         }
 
+        // search filter (name বা category match)
         if (term && !name.includes(term) && !cat.includes(term)) {
             return false;
         }
@@ -52,8 +53,9 @@ const ManageProducts = () => {
         if (!sure) return;
 
         try {
-            // ✅ axios এর বদলে axiosSecure ব্যবহার করতে হবে (DELETE Route Protected)
-            const res = await axiosSecure.delete(`/products/${product._id}`);
+            const res = await axios.delete(
+                `http://localhost:8000/products/${product._id}`
+            );
 
             if (res.data.deletedCount > 0) {
                 toast.success("Product deleted");
@@ -135,6 +137,7 @@ const ManageProducts = () => {
                 </div>
             </div>
 
+            {/* No products */}
             {products.length === 0 ? (
                 <div className="min-h-[30vh] flex items-center justify-center text-slate-500 text-sm">
                     No products found. Please add some products first.
@@ -157,6 +160,8 @@ const ManageProducts = () => {
                             {filteredProducts.map((p, idx) => (
                                 <tr key={p._id}>
                                     <td>{idx + 1}</td>
+
+                                    {/* Product name */}
                                     <td>
                                         <p className="font-medium text-[13px]">
                                             {p.name || "Unnamed product"}
@@ -167,6 +172,8 @@ const ManageProducts = () => {
                                             </p>
                                         )}
                                     </td>
+
+                                    {/* Buyer */}
                                     <td>
                                         <div className="flex flex-col">
                                             <span className="text-[12px] font-medium">
@@ -179,12 +186,18 @@ const ManageProducts = () => {
                                             )}
                                         </div>
                                     </td>
+
+                                    {/* Min quantity */}
                                     <td className="text-right">
                                         {p.minQty ?? p.quantity ?? 0}
                                     </td>
+
+                                    {/* Price */}
                                     <td className="text-right">
                                         {p.price ? `$${p.price}` : "On request"}
                                     </td>
+
+                                    {/* showOnHome flag */}
                                     <td>
                                         <span
                                             className={`badge badge-xs ${p.showOnHome ? "badge-success" : "badge-ghost"
@@ -193,8 +206,12 @@ const ManageProducts = () => {
                                             {p.showOnHome ? "Yes" : "No"}
                                         </span>
                                     </td>
+
+                                    {/* Actions */}
                                     <td>
                                         <div className="flex justify-end gap-2">
+                                            {/* Future: Edit button */}
+                                            {/* <button className="btn btn-xs btn-outline">Edit</button> */}
                                             <Link
                                                 to={`/dashboard/update-product/${p._id}`}
                                                 className="btn btn-xs btn-outline"

@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import useAxiosSecure from "../Hook /useAxiosSecure";
 
 const AllProducts = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const axiosSecure = useAxiosSecure();
+    const axi
 
     // UI controls
     const [search, setSearch] = useState("");
@@ -15,16 +14,11 @@ const AllProducts = () => {
     const [sort, setSort] = useState("none");
 
     // Load products from backend
-
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const res = await axiosSecure.get("/products");
-
-                // ✅ ফিক্স: সরাসরি res.data না নিয়ে, res.data.products নিতে হবে
-                // সার্ভার এখন { products: [], total: ... } পাঠাচ্ছে
-                setProducts(res.data.products || []);
-
+                const res = await axios.get("http://localhost:8000/products");
+                setProducts(res.data || []);
             } catch (err) {
                 console.error("Error loading products:", err);
             } finally {
@@ -33,7 +27,7 @@ const AllProducts = () => {
         };
 
         fetchProducts();
-    }, [axiosSecure]);
+    }, []);
 
     // Filter + search + sort (client side)
     const filteredProducts = products

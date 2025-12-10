@@ -15,7 +15,6 @@ const AllProducts = () => {
     const [sort, setSort] = useState("none");
 
     // Load products from backend
-
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -34,7 +33,6 @@ const AllProducts = () => {
 
         fetchProducts();
     }, [axiosSecure]);
-
     // Filter + search + sort (client side)
     const filteredProducts = products
         .filter((p) =>

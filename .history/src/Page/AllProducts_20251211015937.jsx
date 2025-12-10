@@ -15,16 +15,11 @@ const AllProducts = () => {
     const [sort, setSort] = useState("none");
 
     // Load products from backend
-
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const res = await axiosSecure.get("/products");
-
-                // ✅ ফিক্স: সরাসরি res.data না নিয়ে, res.data.products নিতে হবে
-                // সার্ভার এখন { products: [], total: ... } পাঠাচ্ছে
-                setProducts(res.data.products || []);
-
+                setProducts(res.data || []);
             } catch (err) {
                 console.error("Error loading products:", err);
             } finally {

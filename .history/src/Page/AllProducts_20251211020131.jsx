@@ -15,7 +15,7 @@ const AllProducts = () => {
     const [sort, setSort] = useState("none");
 
     // Load products from backend
-
+    
     useEffect(() => {
         const fetchProducts = async () => {
             try {

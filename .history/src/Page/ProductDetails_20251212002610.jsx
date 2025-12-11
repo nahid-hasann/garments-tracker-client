@@ -519,7 +519,7 @@ const ProductDetails = () => {
                             </div>
 
                             {/* Submit Button */}
-                           
+                            <Link to=''>
 
                                 <button
                                     type="submit"
@@ -527,7 +527,7 @@ const ProductDetails = () => {
                                 >
                                     Confirm Order
                                 </button>
-                        
+                            </Link>
                         </form>
 
                         {/* Close button */}

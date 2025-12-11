@@ -527,7 +527,7 @@ const ProductDetails = () => {
                                 >
                                     Confirm Order
                                 </button>
-                        
+                            </Link>
                         </form>
 
                         {/* Close button */}

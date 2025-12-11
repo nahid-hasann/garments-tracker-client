@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 // বেস ইউআরএল এখানেও ঠিক রাখা ভালো, যদিও main.jsx এ সেট করেছেন
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:8000',
+    baseURL: 'https://garments-tracker-server.vercel.app',
     withCredentials: true
 });
 

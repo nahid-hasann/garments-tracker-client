@@ -147,34 +147,6 @@ const DashboardLayout = () => {
                             </NavLink>
                         </li>
 
-                        <li>
-                            <NavLink
-                                to="/dashboard/profile"
-                                className={({ isActive }) =>
-                                    `is-drawer-close:tooltip is-drawer-close:tooltip-right ${isActive ? "bg-base-300 text-primary font-semibold" : ""
-                                    }`
-                                }
-                                data-tip="My Profile"
-                            >
-                                {/* Profile Icon */}
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    strokeLinejoin="round"
-                                    strokeLinecap="round"
-                                    strokeWidth="2"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    className="my-1.5 inline-block size-4"
-                                >
-                                    <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5z" />
-                                    <path d="M4 22v-1c0-3.314 2.686-6 6-6h4c3.314 0 6 2.686 6 6v1" />
-                                </svg>
-
-                                <span className="is-drawer-close:hidden">My Profile</span>
-                            </NavLink>
-                        </li>
-
                         {/* ================= BUYER SECTION ================= */}
                         {role === "buyer" && (
                             <>

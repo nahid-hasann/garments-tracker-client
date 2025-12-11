@@ -38,7 +38,7 @@ const AllProducts = () => {
         };
 
         fetchProducts();
-    }, [currentPage, search, category, axiosSecure]);
+    }, [currentPage, search, category, axi]);
 
     const handlePrev = () => {
         if (currentPage > 1) setCurrentPage(currentPage - 1);

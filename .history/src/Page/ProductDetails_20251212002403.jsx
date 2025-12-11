@@ -198,7 +198,7 @@ const ProductDetails = () => {
 
         // যদি online payment লাগে → আগে payment page e যাও
         if (requiresOnlinePayment) {
-            navigate("/dashboard/payment", { state: { orderData: order } });
+            navigate("/payment", { state: { orderData: order } });
             setOpenModal(false);
             return;
         }
@@ -347,8 +347,8 @@ const ProductDetails = () => {
                             onClick={() => canOrder && setOpenModal(true)}
                             disabled={!canOrder}
                             className={`flex-1 rounded-full text-sm font-semibold py-2.5 transition-colors ${canOrder
-                                ? "bg-blue-600 text-white hover:bg-blue-700"
-                                : "bg-slate-200 text-slate-500 cursor-not-allowed"
+                                    ? "bg-blue-600 text-white hover:bg-blue-700"
+                                    : "bg-slate-200 text-slate-500 cursor-not-allowed"
                                 }`}
                         >
                             {getOrderButtonText()}
@@ -519,15 +519,15 @@ const ProductDetails = () => {
                             </div>
 
                             {/* Submit Button */}
-                           
-
+                            <Link>
+                            
                                 <button
                                     type="submit"
                                     className="btn btn-primary w-full text-sm"
                                 >
                                     Confirm Order
                                 </button>
-                        
+                            </Link>
                         </form>
 
                         {/* Close button */}

@@ -4,7 +4,7 @@ import useAuth from "../Hook /useAuth"; // আপনার ফোল্ডার
 import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-    baseURL: 'https://garments-tracker-server.vercel.app',
+    baseURL: 'http://localhost:8000',
     withCredentials: true // ⭐ এটাই মেইন, এর কারণে কুকি অটো সার্ভারে যাবে
 });
 

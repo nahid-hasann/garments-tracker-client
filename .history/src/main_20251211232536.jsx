@@ -41,6 +41,7 @@ import AdminRoute from './Rout/AdminRoute.jsx';
 import TrackOrderDetails from './Dashboardpages/TrackOrderDetails.jsx';
 import axios from 'axios';
 
+// 👇 ২. এই ২ লাইন কোড বসান (আপনার লাইভ সার্ভার লিংক)
 axios.defaults.baseURL = 'https://garments-tracker-server.vercel.app';
 axios.defaults.withCredentials = true;
 

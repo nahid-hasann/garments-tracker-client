@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import axios from "axios"; // ✅ সাধারণ axios
-import useAxiosSecure from "../Hook /useAxiosSecure";
+import axios from "axios"; // ✅ সাধারণ axios ব্যবহার করছি (পাবলিক পেজ)
 
 const AllProducts = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const axiosSecure = useAxiosSecure();
 
     // Pagination & Filter States
     const [search, setSearch] = useState("");
@@ -15,23 +13,27 @@ const AllProducts = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const limit = 9;
+    const axi
 
     useEffect(() => {
         const fetchProducts = async () => {
             setLoading(true);
             try {
-                // ✅ সাধারণ axios কল (কোনো credentials লাগবে না)
-                // আপনার সার্ভার পোর্টে হিট করছি
-                const res = await axiosSecure.get(
-                    `/products?page=${currentPage}&limit=${limit}&search=${search}&category=${category}`
+                // ✅ সরাসরি সার্ভার লিংকে কল করছি (পাবলিক রাউট)
+                // আপনার main.jsx এ baseURL সেট করা থাকলে শুধু '/products' দিলেই হবে
+                // রিস্ক না নিতে চাইলে পুরো লিংক দিলাম:
+                const res = await axios.get(
+                    `http://localhost:8000/products?page=${currentPage}&limit=${limit}&search=${search}&category=${category}`
                 );
 
+                // ডাটা সেট করা
                 setProducts(res.data.products || []);
                 const totalItems = res.data.total || 0;
                 setTotalPages(Math.ceil(totalItems / limit));
 
             } catch (err) {
                 console.error("Error loading products:", err);
+                // ডিবাগিং-এর জন্য: কনসোলে আসল এররটা দেখুন
             } finally {
                 setLoading(false);
             }
@@ -68,6 +70,9 @@ const AllProducts = () => {
                     <h1 className="text-2xl md:text-3xl font-bold text-slate-900">
                         All Garments Products
                     </h1>
+                    <p className="text-sm text-slate-500 mt-1">
+                        Browse all items registered in the system.
+                    </p>
                 </div>
 
                 <div className="flex flex-wrap gap-3 text-sm">

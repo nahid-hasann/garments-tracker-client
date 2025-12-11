@@ -2,10 +2,9 @@ import React from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
-import useAxiosSecure from "../Hook /useAxiosSecure";
 
 const AddProduct = () => {
-    const axiosSecure = useAxiosSecure();
+    const axiosSecure
 
     // ⭐⭐⭐ Handle Add Product Function — ei jaigai bosabe
     const handleAddProduct = async (e) => {
@@ -35,7 +34,7 @@ const AddProduct = () => {
         };
 
         try {
-            const res = await axiosSecure.post("/products", newProduct);
+            const res = await axios.post("http://localhost:8000/products", newProduct);
 
             if (res.data.insertedId || res.data.acknowledged) {
                 toast.success("Product added successfully!");

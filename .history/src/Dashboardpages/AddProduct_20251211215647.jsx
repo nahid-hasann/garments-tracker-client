@@ -35,7 +35,7 @@ const AddProduct = () => {
         };
 
         try {
-            const res = await axiosSecure.post("/products", newProduct);
+            const res = await axiosSecure.post("http://localhost:8000/products", newProduct);
 
             if (res.data.insertedId || res.data.acknowledged) {
                 toast.success("Product added successfully!");

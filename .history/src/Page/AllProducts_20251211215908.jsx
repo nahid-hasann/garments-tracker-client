@@ -23,7 +23,7 @@ const AllProducts = () => {
                 // ✅ সাধারণ axios কল (কোনো credentials লাগবে না)
                 // আপনার সার্ভার পোর্টে হিট করছি
                 const res = await axiosSecure.get(
-                    `/products?page=${currentPage}&limit=${limit}&search=${search}&category=${category}`
+                    `http://localhost:8000/products?page=${currentPage}&limit=${limit}&search=${search}&category=${category}`
                 );
 
                 setProducts(res.data.products || []);

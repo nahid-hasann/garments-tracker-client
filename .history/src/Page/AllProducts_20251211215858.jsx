@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import axios from "axios"; // ✅ সাধারণ axios
-import useAxiosSecure from "../Hook /useAxiosSecure";
 
 const AllProducts = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const axiosSecure = useAxiosSecure();
+    const axi
 
     // Pagination & Filter States
     const [search, setSearch] = useState("");
@@ -22,8 +21,8 @@ const AllProducts = () => {
             try {
                 // ✅ সাধারণ axios কল (কোনো credentials লাগবে না)
                 // আপনার সার্ভার পোর্টে হিট করছি
-                const res = await axiosSecure.get(
-                    `/products?page=${currentPage}&limit=${limit}&search=${search}&category=${category}`
+                const res = await axios.get(
+                    `http://localhost:8000/products?page=${currentPage}&limit=${limit}&search=${search}&category=${category}`
                 );
 
                 setProducts(res.data.products || []);

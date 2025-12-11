@@ -163,7 +163,7 @@ const Home = () => {
             </section>
 
             {/* ========== HOW IT WORKS ========== */}
-            <section className="bg-white rounded-3xl shadow-lg border  border-slate-100 p-8 md:p-12 space-y-10 overflow-hidden relative">
+            <section className="bg-white rounded-3xl shadow-lg border mt-[40px] border-slate-100 p-8 md:p-12 space-y-10 overflow-hidden relative">
                 {/* Decorative Background Blob */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-50 -z-10 translate-x-1/2 -translate-y-1/2"></div>
 

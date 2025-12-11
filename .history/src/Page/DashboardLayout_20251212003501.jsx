@@ -22,20 +22,7 @@ const DashboardLayout = () => {
                             aria-label="open sidebar"
                             className="btn btn-square btn-ghost lg:hidden"
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                strokeLinejoin="round"
-                                strokeLinecap="round"
-                                strokeWidth="2"
-                                fill="none"
-                                stroke="currentColor"
-                                className="inline-block size-5"
-                            >
-                                <path d="M4 6h16" />
-                                <path d="M4 12h16" />
-                                <path d="M4 18h16" />
-                            </svg>
+                           
                         </label>
 
                         <div>
@@ -100,13 +87,9 @@ const DashboardLayout = () => {
                     {/* BRAND / USER BLOCK */}
                     <div className="w-full border-b border-base-300 px-3 py-3 flex items-center gap-3">
                         <div className="avatar">
-
                             <div className="w-9 rounded-xl bg-primary text-primary-content flex items-center justify-center font-bold">
-                                <Link to="/">
-                                    GT
-                                </Link>
+                                GT
                             </div>
-
                         </div>
                         <div className="is-drawer-close:hidden leading-tight">
                             <p className="font-semibold text-sm">GarmentsTracker</p>
@@ -122,7 +105,7 @@ const DashboardLayout = () => {
                         <li className="menu-title is-drawer-close:hidden">
                             <span>Overview</span>
                         </li>
-
+                       
 
                         <li>
                             <NavLink
@@ -339,7 +322,7 @@ const DashboardLayout = () => {
                             </>
                         )}
 
-                        <li>
+<li>
                             {role === "manager" && (
                                 <NavLink
                                     to="/dashboard/approved-orders"
@@ -405,61 +388,61 @@ const DashboardLayout = () => {
 
                                 <li>
                                     {role === "admin" && (
-                                        <NavLink
-                                            to="/dashboard/all-products"
-                                            className={({ isActive }) =>
-                                                `is-drawer-close:tooltip is-drawer-close:tooltip-right ${isActive ? "bg-base-300 text-primary font-semibold" : ""
-                                                }`
-                                            }
-                                            data-tip="All Products"
+                                    <NavLink
+                                        to="/dashboard/all-products"
+                                        className={({ isActive }) =>
+                                            `is-drawer-close:tooltip is-drawer-close:tooltip-right ${isActive ? "bg-base-300 text-primary font-semibold" : ""
+                                            }`
+                                        }
+                                        data-tip="All Products"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            strokeLinejoin="round"
+                                            strokeLinecap="round"
+                                            strokeWidth="2"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            className="my-1.5 inline-block size-4"
                                         >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                                strokeLinejoin="round"
-                                                strokeLinecap="round"
-                                                strokeWidth="2"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                className="my-1.5 inline-block size-4"
-                                            >
-                                                <path d="M4 4h7v7H4z" />
-                                                <path d="M13 4h7v7h-7z" />
-                                                <path d="M4 13h7v7H4z" />
-                                                <path d="M13 13h7v7h-7z" />
-                                            </svg>
-                                            <span className="is-drawer-close:hidden">All Products</span>
-                                        </NavLink>
+                                            <path d="M4 4h7v7H4z" />
+                                            <path d="M13 4h7v7h-7z" />
+                                            <path d="M4 13h7v7H4z" />
+                                            <path d="M13 13h7v7h-7z" />
+                                        </svg>
+                                        <span className="is-drawer-close:hidden">All Products</span>
+                                    </NavLink>
                                     )}
                                 </li>
 
                                 <li>
                                     {role === "admin" && (
-                                        <NavLink
-                                            to="/dashboard/all-orders"
-                                            className={({ isActive }) =>
-                                                `is-drawer-close:tooltip is-drawer-close:tooltip-right ${isActive ? "bg-base-300 text-primary font-semibold" : ""
-                                                }`
-                                            }
-                                            data-tip="All Orders"
+                                    <NavLink
+                                        to="/dashboard/all-orders"
+                                        className={({ isActive }) =>
+                                            `is-drawer-close:tooltip is-drawer-close:tooltip-right ${isActive ? "bg-base-300 text-primary font-semibold" : ""
+                                            }`
+                                        }
+                                        data-tip="All Orders"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            strokeLinejoin="round"
+                                            strokeLinecap="round"
+                                            strokeWidth="2"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            className="my-1.5 inline-block size-4"
                                         >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                                strokeLinejoin="round"
-                                                strokeLinecap="round"
-                                                strokeWidth="2"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                className="my-1.5 inline-block size-4"
-                                            >
-                                                <path d="M5 7h14" />
-                                                <path d="M5 11h14" />
-                                                <path d="M5 15h14" />
-                                                <path d="M5 19h14" />
-                                            </svg>
-                                            <span className="is-drawer-close:hidden">All Orders</span>
-                                        </NavLink>
+                                            <path d="M5 7h14" />
+                                            <path d="M5 11h14" />
+                                            <path d="M5 15h14" />
+                                            <path d="M5 19h14" />
+                                        </svg>
+                                        <span className="is-drawer-close:hidden">All Orders</span>
+                                    </NavLink>
                                     )}
                                 </li>
                             </>

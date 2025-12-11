@@ -3,8 +3,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { FaClipboardList, FaCut, FaCheckDouble, FaShippingFast, FaUserShield, FaChartLine, FaIndustry } from "react-icons/fa";
-import FeedbackSection from "../component/FeedbackSection";
+import { FaClipboardList, FaCut, FaCheckDouble, FaShippingFast } from "react-icons/fa";
 
 const Home = () => {
 
@@ -163,148 +162,155 @@ const Home = () => {
             </section>
 
             {/* ========== HOW IT WORKS ========== */}
-            <section className="bg-white rounded-3xl shadow-lg border  border-slate-100 p-8 md:p-12 space-y-10 overflow-hidden relative">
-                {/* Decorative Background Blob */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-50 -z-10 translate-x-1/2 -translate-y-1/2"></div>
+            <section className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 md:p-6 space-y-4">
+                <h2 className="text-xl font-semibold text-slate-900">
+                    How It Works
+                </h2>
+                <p className="text-sm text-slate-500 max-w-xl">
+                    From buyer order to final shipment – track every step in a clean,
+                    visual workflow.
+                </p>
 
-                <div className="text-center max-w-2xl mx-auto space-y-3">
-                    <h2 className="text-3xl font-bold text-slate-900">
-                        How It Works
-                    </h2>
-                    <p className="text-slate-500 text-lg">
-                        From buyer order to final shipment – track every step in a seamless workflow.
-                    </p>
-                </div>
-
-                <div className="grid md:grid-cols-4 gap-8 relative">
-                    {/* Connecting Line (Desktop Only) */}
-                    <div className="hidden md:block absolute top-12 left-[10%] right-[10%] h-1 bg-slate-100 -z-10"></div>
-
-                    {/* === STEP 1 === */}
-                    <div className="relative group">
-                        <div className="bg-white border border-slate-100 rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 h-full">
-                            <div className="w-16 h-16 mx-auto bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                                <FaClipboardList />
-                            </div>
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2">
-                                <span className="badge badge-primary badge-outline text-xs font-bold">Step 01</span>
-                            </div>
-                            <h3 className="font-bold text-slate-900 text-lg mb-2">Order Created</h3>
-                            <p className="text-sm text-slate-500 leading-relaxed">
-                                Admin adds new order with quantities, size ratio & estimated ship date.
-                            </p>
-                        </div>
+                <div className="grid md:grid-cols-4 gap-4 text-sm">
+                    <div className="bg-slate-50 rounded-xl p-4">
+                        <p className="text-xs font-semibold text-blue-600 mb-1">
+                            Step 1
+                        </p>
+                        <p className="font-semibold text-slate-900">
+                            Buyer Order Created
+                        </p>
+                        <p className="text-[12px] text-slate-500 mt-1">
+                            Admin/Manager adds new order with quantities, size ratio & ship
+                            date.
+                        </p>
                     </div>
-
-                    {/* === STEP 2 === */}
-                    <div className="relative group">
-                        <div className="bg-white border border-slate-100 rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 h-full">
-                            <div className="w-16 h-16 mx-auto bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                                <FaCut />
-                            </div>
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2">
-                                <span className="badge badge-secondary badge-outline text-xs font-bold">Step 02</span>
-                            </div>
-                            <h3 className="font-bold text-slate-900 text-lg mb-2">Cutting & Sewing</h3>
-                            <p className="text-sm text-slate-500 leading-relaxed">
-                                Production team updates real-time progress for cutting, sewing & finishing lines.
-                            </p>
-                        </div>
+                    <div className="bg-slate-50 rounded-xl p-4">
+                        <p className="text-xs font-semibold text-blue-600 mb-1">
+                            Step 2
+                        </p>
+                        <p className="font-semibold text-slate-900">
+                            Cutting & Sewing
+                        </p>
+                        <p className="text-[12px] text-slate-500 mt-1">
+                            Production team updates progress by line: cutting, sewing,
+                            finishing.
+                        </p>
                     </div>
-
-                    {/* === STEP 3 === */}
-                    <div className="relative group">
-                        <div className="bg-white border border-slate-100 rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 h-full">
-                            <div className="w-16 h-16 mx-auto bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                                <FaCheckDouble />
-                            </div>
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2">
-                                <span className="badge badge-accent badge-outline text-xs font-bold">Step 03</span>
-                            </div>
-                            <h3 className="font-bold text-slate-900 text-lg mb-2">QC & Packing</h3>
-                            <p className="text-sm text-slate-500 leading-relaxed">
-                                Quality team logs pass/fail status and prepares the final packing list.
-                            </p>
-                        </div>
+                    <div className="bg-slate-50 rounded-xl p-4">
+                        <p className="text-xs font-semibold text-blue-600 mb-1">
+                            Step 3
+                        </p>
+                        <p className="font-semibold text-slate-900">
+                            QC & Packing
+                        </p>
+                        <p className="text-[12px] text-slate-500 mt-1">
+                            Quality team logs pass/fail status & packing details.
+                        </p>
                     </div>
-
-                    {/* === STEP 4 === */}
-                    <div className="relative group">
-                        <div className="bg-white border border-slate-100 rounded-2xl p-6 text-center shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 h-full">
-                            <div className="w-16 h-16 mx-auto bg-orange-50 text-orange-600 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                                <FaShippingFast />
-                            </div>
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2">
-                                <span className="badge badge-warning badge-outline text-xs font-bold">Step 04</span>
-                            </div>
-                            <h3 className="font-bold text-slate-900 text-lg mb-2">Shipment</h3>
-                            <p className="text-sm text-slate-500 leading-relaxed">
-                                Handover to logistics. Buyer tracks shipment status directly from dashboard.
-                            </p>
-                        </div>
+                    <div className="bg-slate-50 rounded-xl p-4">
+                        <p className="text-xs font-semibold text-blue-600 mb-1">
+                            Step 4
+                        </p>
+                        <p className="font-semibold text-slate-900">
+                            Shipment & Tracking
+                        </p>
+                        <p className="text-[12px] text-slate-500 mt-1">
+                            Buyer can track shipment status & order history from dashboard.
+                        </p>
                     </div>
                 </div>
             </section>
 
             {/* ========== CUSTOMER FEEDBACK ========== */}
-          <FeedbackSection></FeedbackSection>
-
-            <section className="bg-white rounded-3xl shadow-sm border border-slate-100 p-8 md:p-12 space-y-10">
-                <div className="text-center max-w-2xl mx-auto space-y-3">
-                    <h2 className="text-3xl font-bold text-slate-900">
-                        Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">GarmentsTracker?</span>
+            <section className="space-y-3">
+                <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold text-slate-900">
+                        Customer Feedback
                     </h2>
-                    <p className="text-slate-500 text-lg">
-                        Built specifically for the apparel industry to bridge the gap between production and management.
-                    </p>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-6">
-                    {/* Feature 1 */}
-                    <div className="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-blue-300 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-
-                        <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                            <FaUserShield />
+                <div className="flex gap-4 overflow-x-auto pb-2">
+                    <Carousel
+                        showArrows={true}
+                        autoPlay={true}
+                        infiniteLoop={true}
+                        showThumbs={false}
+                        showStatus={false}
+                        interval={2500}
+                        className="rounded-xl w-full"
+                    >
+                        <div className="bg-white rounded-xl shadow-sm p-5 border border-slate-200">
+                            <p className="text-slate-600 text-sm mb-2">
+                                “GarmentsTracker has helped us improve on-time delivery
+                                significantly. The production overview is super helpful.”
+                            </p>
+                            <p className="font-semibold text-slate-900 text-sm">
+                                Maya Thompson
+                            </p>
+                            <p className="text-[11px] text-slate-400">
+                                Dhaka Apparel Ltd
+                            </p>
                         </div>
 
-                        <h3 className="text-xl font-bold text-slate-900 mb-2">
-                            Role-based Access
-                        </h3>
-                        <p className="text-slate-500 text-sm leading-relaxed">
-                            Dedicated dashboards for Admins, Managers, and Buyers. Everyone sees exactly what they need to see.
+                        <div className="bg-white rounded-xl shadow-sm p-5 border border-slate-200">
+                            <p className="text-slate-600 text-sm mb-2">
+                                “Tracking cutting, sewing, and finishing stages became incredibly
+                                easy. Our team is now more organized than ever.”
+                            </p>
+                            <p className="font-semibold text-slate-900 text-sm">
+                                Production Manager
+                            </p>
+                            <p className="text-[11px] text-slate-400">
+                                Gazipur Knit Factory
+                            </p>
+                        </div>
+
+                        <div className="bg-white rounded-xl shadow-sm p-5 border border-slate-200">
+                            <p className="text-slate-600 text-sm mb-2">
+                                “The dashboard is clean and user-friendly. I can track my orders
+                                anytime without depending on email updates.”
+                            </p>
+                            <p className="font-semibold text-slate-900 text-sm">
+                                Oliver Carter
+                            </p>
+                            <p className="text-[11px] text-slate-400">
+                                Buying House, Uttara
+                            </p>
+                        </div>
+                    </Carousel>
+                </div>
+            </section>
+
+            {/* ========== EXTRA SECTION 1: WHY CHOOSE US ========== */}
+            <section className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 md:p-6 space-y-4">
+                <h2 className="text-xl font-semibold text-slate-900">
+                    Why GarmentsTracker?
+                </h2>
+                <div className="grid md:grid-cols-3 gap-4 text-sm">
+                    <div className="bg-slate-50 rounded-xl p-4">
+                        <p className="font-semibold text-slate-900">
+                            Role-based Dashboard
+                        </p>
+                        <p className="text-[12px] text-slate-500 mt-1">
+                            Separate, clear dashboards for admin, manager and buyer roles.
                         </p>
                     </div>
-
-                    {/* Feature 2 */}
-                    <div className="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-emerald-300 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-
-                        <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
-                            <FaChartLine />
-                        </div>
-
-                        <h3 className="text-xl font-bold text-slate-900 mb-2">
+                    <div className="bg-slate-50 rounded-xl p-4">
+                        <p className="font-semibold text-slate-900">
                             Real-time Insights
-                        </h3>
-                        <p className="text-slate-500 text-sm leading-relaxed">
-                            Track line-wise production updates, order status changes, and shipment progress instantly in one place.
+                        </p>
+                        <p className="text-[12px] text-slate-500 mt-1">
+                            Line-wise production, order status and shipment progress in one
+                            place.
                         </p>
                     </div>
-
-                    {/* Feature 3 */}
-                    <div className="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 to-violet-300 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-
-                        <div className="w-14 h-14 bg-violet-50 text-violet-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:bg-violet-600 group-hover:text-white transition-colors duration-300">
-                            <FaIndustry />
-                        </div>
-
-                        <h3 className="text-xl font-bold text-slate-900 mb-2">
-                            Factory Friendly
-                        </h3>
-                        <p className="text-slate-500 text-sm leading-relaxed">
-                            A lightweight, fast, and easy-to-use web app designed specifically for small to medium garment factories.
+                    <div className="bg-slate-50 rounded-xl p-4">
+                        <p className="font-semibold text-slate-900">
+                            Simple & Factory Friendly
+                        </p>
+                        <p className="text-[12px] text-slate-500 mt-1">
+                            Lightweight web app designed for small and medium garments
+                            factories.
                         </p>
                     </div>
                 </div>

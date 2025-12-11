@@ -3,7 +3,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { FaClipboardList, FaCut, FaCheckDouble, FaShippingFast, FaUserShield, FaChartLine, FaIndustry } from "react-icons/fa";
+import { FaClipboardList, FaCut, FaCheckDouble, FaShippingFast, FaUserShield, FaChartLine } from "react-icons/fa";
 import FeedbackSection from "../component/FeedbackSection";
 
 const Home = () => {
@@ -163,7 +163,7 @@ const Home = () => {
             </section>
 
             {/* ========== HOW IT WORKS ========== */}
-            <section className="bg-white rounded-3xl shadow-lg border  border-slate-100 p-8 md:p-12 space-y-10 overflow-hidden relative">
+            <section className="bg-white rounded-3xl shadow-lg border border-slate-100 p-8 md:p-12 space-y-10 overflow-hidden relative">
                 {/* Decorative Background Blob */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-50 -z-10 translate-x-1/2 -translate-y-1/2"></div>
 

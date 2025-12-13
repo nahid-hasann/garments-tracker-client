@@ -22,13 +22,13 @@ const MainLayout = () => {
     //     document.querySelector("html").setAttribute("data-theme", theme);
     // }, [theme]);
 
-    // const handleToggle = (e) => {
-    //     if (e.target.checked) {
-    //         setTheme("dark");
-    //     } else {
-    //         setTheme("light");
-    //     }
-    // };
+    const handleToggle = (e) => {
+        if (e.target.checked) {
+            setTheme("dark");
+        } else {
+            setTheme("light");
+        }
+    };
 
     return (
         <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">

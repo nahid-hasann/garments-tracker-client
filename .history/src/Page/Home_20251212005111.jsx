@@ -3,7 +3,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { FaClipboardList, FaCut, FaCheckDouble, FaShippingFast, FaUserShield, FaChartLine, FaIndustry, FaCogs, FaBoxOpen } from "react-icons/fa";
+import { FaClipboardList, FaCut, FaCheckDouble, FaShippingFast, FaUserShield, FaChartLine, FaIndustry } from "react-icons/fa";
 import FeedbackSection from "../component/FeedbackSection";
 
 const Home = () => {
@@ -311,73 +311,27 @@ const Home = () => {
             </section>
 
             {/* ========== EXTRA SECTION 2: PRODUCTION SNAPSHOT CARDS ========== */}
-            <section className="grid md:grid-cols-3 gap-6 px-2">
-                {/* Card 1: Today's Orders */}
-                <div className="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-                    <div className="flex justify-between items-start">
-                        <div className="space-y-4 relative z-10">
-                            <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                                <FaClipboardList />
-                            </div>
-                            <div>
-                                <p className="text-sm font-medium text-slate-500">Today's Orders</p>
-                                <h3 className="text-4xl font-bold text-slate-900 mt-1">18</h3>
-                            </div>
-                            <p className="text-xs text-slate-400 bg-slate-50 inline-block px-2 py-1 rounded-md border border-slate-100">
-                                New orders loaded today
-                            </p>
-                        </div>
-                        {/* Background Decoration */}
-                        <div className="absolute -right-6 -top-6 text-9xl text-slate-50 opacity-50 group-hover:scale-110 transition-transform duration-500 rotate-12 z-0">
-                            <FaClipboardList />
-                        </div>
-                    </div>
-                    {/* Bottom Accent Line */}
-                    <div className="absolute bottom-0 left-0 w-full h-1 bg-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+            <section className="grid md:grid-cols-3 gap-4 text-sm">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-4">
+                    <p className="text-xs text-slate-500">Today&apos;s Orders</p>
+                    <p className="text-2xl font-bold text-slate-900 mt-1">18</p>
+                    <p className="text-[11px] text-slate-500 mt-1">
+                        Total buyer orders loaded into today&apos;s production plan.
+                    </p>
                 </div>
-
-                {/* Card 2: In Production */}
-                <div className="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-                    <div className="flex justify-between items-start">
-                        <div className="space-y-4 relative z-10">
-                            <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xl group-hover:bg-amber-500 group-hover:text-white transition-colors duration-300">
-                                <FaCogs />
-                            </div>
-                            <div>
-                                <p className="text-sm font-medium text-slate-500">In Production</p>
-                                <h3 className="text-4xl font-bold text-slate-900 mt-1">42</h3>
-                            </div>
-                            <p className="text-xs text-slate-400 bg-slate-50 inline-block px-2 py-1 rounded-md border border-slate-100">
-                                Currently in cutting/sewing
-                            </p>
-                        </div>
-                        <div className="absolute -right-6 -top-6 text-9xl text-slate-50 opacity-50 group-hover:scale-110 transition-transform duration-500 rotate-12 z-0">
-                            <FaCogs />
-                        </div>
-                    </div>
-                    <div className="absolute bottom-0 left-0 w-full h-1 bg-amber-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-4">
+                    <p className="text-xs text-slate-500">In Production</p>
+                    <p className="text-2xl font-bold text-blue-600 mt-1">42</p>
+                    <p className="text-[11px] text-slate-500 mt-1">
+                        Orders currently in cutting, sewing or finishing lines.
+                    </p>
                 </div>
-
-                {/* Card 3: Ready to Ship */}
-                <div className="group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
-                    <div className="flex justify-between items-start">
-                        <div className="space-y-4 relative z-10">
-                            <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
-                                <FaBoxOpen />
-                            </div>
-                            <div>
-                                <p className="text-sm font-medium text-slate-500">Ready to Ship</p>
-                                <h3 className="text-4xl font-bold text-slate-900 mt-1">09</h3>
-                            </div>
-                            <p className="text-xs text-slate-400 bg-slate-50 inline-block px-2 py-1 rounded-md border border-slate-100">
-                                QC passed & packed
-                            </p>
-                        </div>
-                        <div className="absolute -right-6 -top-6 text-9xl text-slate-50 opacity-50 group-hover:scale-110 transition-transform duration-500 rotate-12 z-0">
-                            <FaBoxOpen />
-                        </div>
-                    </div>
-                    <div className="absolute bottom-0 left-0 w-full h-1 bg-emerald-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-4">
+                    <p className="text-xs text-slate-500">Ready to Ship</p>
+                    <p className="text-2xl font-bold text-emerald-600 mt-1">9</p>
+                    <p className="text-[11px] text-slate-500 mt-1">
+                        QC passed & packed, shipments waiting for final booking.
+                    </p>
                 </div>
             </section>
         </div>

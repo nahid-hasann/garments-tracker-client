@@ -3,7 +3,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { FaClipboardList, FaCut, FaCheckDouble, FaShippingFast, FaUserShield, FaChartLine, FaIndustry, FaCogs, FaBoxOpen } from "react-icons/fa";
+import { FaClipboardList, FaCut, FaCheckDouble, FaShippingFast, FaUserShield, FaChartLine, FaIndustry, Facogs, FaBoxOpen } from "react-icons/fa";
 import FeedbackSection from "../component/FeedbackSection";
 
 const Home = () => {
@@ -352,7 +352,7 @@ const Home = () => {
                             </p>
                         </div>
                         <div className="absolute -right-6 -top-6 text-9xl text-slate-50 opacity-50 group-hover:scale-110 transition-transform duration-500 rotate-12 z-0">
-                            <FaCogs />
+                            <Facogs />
                         </div>
                     </div>
                     <div className="absolute bottom-0 left-0 w-full h-1 bg-amber-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>

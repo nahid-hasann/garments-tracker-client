@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 const MainLayout = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
     const { user, logOut } = useAuth();
-    // const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
     const handleLogout = () => {
         logOut()
@@ -17,18 +17,18 @@ const MainLayout = () => {
     // Theme Toggle Logic
    
 
-    // useEffect(() => {
-    //     localStorage.setItem("theme", theme);
-    //     document.querySelector("html").setAttribute("data-theme", theme);
-    // }, [theme]);
+    useEffect(() => {
+        localStorage.setItem("theme", theme);
+        document.querySelector("html").setAttribute("data-theme", theme);
+    }, [theme]);
 
-    // const handleToggle = (e) => {
-    //     if (e.target.checked) {
-    //         setTheme("dark");
-    //     } else {
-    //         setTheme("light");
-    //     }
-    // };
+    const handleToggle = (e) => {
+        if (e.target.checked) {
+            setTheme("dark");
+        } else {
+            setTheme("light");
+        }
+    };
 
     return (
         <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
@@ -248,10 +248,13 @@ const MainLayout = () => {
                                 )}
                             </nav>
                         </div>
-                    )}                   
+                    )}
+
+                    
                     
                 </div>
 
+                
             </header>
 
             {/* ================= MAIN CONTENT ================= */}

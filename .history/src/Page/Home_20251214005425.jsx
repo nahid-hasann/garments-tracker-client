@@ -1,4 +1,4 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
@@ -13,13 +13,10 @@ const Home = () => {
 
     const axiosSecure = useAxiosSecure();
 
-
- 
-
     const { data: homeProducts = [], isLoading } = useQuery({
         queryKey: ['homeProducts'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/products?limit=6&page=1');
+            const res = await axiosSecure.get('/products/home');
             return res.data.products || res.data;
         }
     });

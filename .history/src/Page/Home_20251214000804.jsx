@@ -1,4 +1,4 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
@@ -13,10 +13,17 @@ const Home = () => {
 
     const axiosSecure = useAxiosSecure();
 
+
+ 
+
     const { data: homeProducts = [], isLoading } = useQuery({
         queryKey: ['homeProducts'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/products/home');
+            // আপনার সার্ভারের রাউট অনুযায়ী লিংক দিন। সাধারণত '/products' হয়।
+            const res = await axiosSecure.get('/products?limit=6&page=1');
+
+            // সার্ভার যদি { products: [...] } রিটার্ন করে, তবে res.data.products নিব
+            // আর যদি সরাসরি Array [...] রিটার্ন করে, তবে res.data নিব
             return res.data.products || res.data;
         }
     });

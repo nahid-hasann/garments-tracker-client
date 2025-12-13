@@ -1,4 +1,4 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
@@ -12,6 +12,9 @@ import { useQuery } from "@tanstack/react-query";
 const Home = () => {
 
     const axiosSecure = useAxiosSecure();
+
+
+ 
 
     const { data: homeProducts = [], isLoading } = useQuery({
         queryKey: ['homeProducts'],

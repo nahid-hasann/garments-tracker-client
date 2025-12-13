@@ -1,4 +1,4 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
@@ -6,28 +6,18 @@ import { Helmet } from "react-helmet-async";
 import { FaClipboardList, FaCut, FaCheckDouble, FaShippingFast, FaUserShield, FaChartLine, FaIndustry, FaCogs, FaBoxOpen } from "react-icons/fa";
 import FeedbackSection from "../component/FeedbackSection";
 import { motion } from "framer-motion";
-import useAxiosSecure from "../Hook /useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
 
 const Home = () => {
 
-    const axiosSecure = useAxiosSecure();
+ 
 
-    const { data: homeProducts = [], isLoading } = useQuery({
-        queryKey: ['homeProducts'],
-        queryFn: async () => {
-            const res = await axiosSecure.get('/products/home');
-            return res.data.products || res.data;
-        }
-    });
+    const [homeProducts, setHomeProducts] = useState([]);
 
-    if (isLoading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <span className="loading loading-spinner loading-lg text-blue-600"></span>
-            </div>
-        );
-    }
+    useEffect(() => {
+        fetch("http://localhost:8000/products/home?limit=6")
+            .then(res => res.json())
+            .then(data => setHomeProducts(data))
+    }, [])
 
     // Animation Rules
     const containerVariants = {
@@ -129,6 +119,8 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* ========== OUR PRODUCTS (STATIC UI, ৬টা কার্ড) ========== */}
+            {/* TODO: Later replace static cards with MongoDB data (limit 6) */}
             {/* ========== OUR PRODUCTS ========== */}
             <section className="space-y-4">
                 <div className="flex items-center justify-between gap-2">

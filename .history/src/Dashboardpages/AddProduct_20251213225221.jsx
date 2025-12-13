@@ -1,14 +1,15 @@
 import React from "react";
+import useAxiosSecure from "../Hook /useAxiosSecure"; // পাথ চেক করুন
+// import useAuth from "../Hook /useAuth"; // পাথ চেক করুন
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
-import { useForm } from "react-hook-form";
-import useAxiosSecure from "../Hook /useAxiosSecure";
-import useAuth from "../Hook /useAuth";
+import { useForm } from "react-hook-form"; // ✅ ১. ইমপোর্ট করা হলো
 
 const AddProduct = () => {
     const axiosSecure = useAxiosSecure();
-    const { userStatus } = useAuth();
+    const { userStatus } = useAuth(); // AuthProvider থেকে স্ট্যাটাস নিচ্ছি
 
+    // ✅ ২. react-hook-form এর হুক সেটআপ
     const {
         register,
         handleSubmit,
@@ -16,7 +17,7 @@ const AddProduct = () => {
         formState: { errors },
     } = useForm();
 
-    // 🔥 BLOCKED VIEW
+    // 🔥 BLOCKED VIEW (যদি ম্যানেজার Suspended হয়) - আপনার আগের কোড
     if (userStatus === 'suspended') {
         return (
             <div className="min-h-[60vh] flex flex-col items-center justify-center text-center space-y-4">
@@ -26,36 +27,36 @@ const AddProduct = () => {
                 <div className="text-red-500 text-6xl">🚫</div>
                 <h2 className="text-2xl font-bold text-slate-800">Access Restricted</h2>
                 <p className="text-slate-500 max-w-md">
-                    Your account has been <span className="text-red-500 font-bold">SUSPENDED</span>.
+                    Your account has been <span className="text-red-500 font-bold">SUSPENDED</span> by the admin.
+                    You cannot add new products at this time.
+                </p>
+                <p className="text-sm bg-slate-100 p-2 rounded">
+                    Check your <span className="font-semibold">Profile</span> for the suspension reason.
                 </p>
             </div>
         );
     }
 
-    // ✅ ফর্ম সাবমিট ফাংশন
+    // ✅ ৩. নতুন সাবমিট হ্যান্ডলার (onSubmit)
     const onSubmit = async (data) => {
-
-        // 1. ডাটা সাজানো (Description সহ)
+        // ডাটা ফরম্যাটিং (নাম্বার কনভার্ট করা)
         const newProduct = {
             name: data.name,
             image: data.image,
             buyerName: data.buyerName,
             category: data.category,
-            price: parseFloat(data.price),
+            price: parseFloat(data.price), // স্ট্রিং থেকে নাম্বারে কনভার্ট
             minQty: parseInt(data.minQty),
             availableQty: parseInt(data.availableQty),
             paymentOptions: data.paymentOptions,
-            showOnHome: data.showOnHome,
-            description: data.description, // ✅ এই যে ডেসক্রিপশন অ্যাড করা হলো
-            createdAt: new Date().toISOString() // সাথে সময়টাও দিয়ে দিলাম
+            showOnHome: data.showOnHome, // চেকবক্স অটোমেটিক true/false দিবে
         };
 
         try {
-            // 2. সার্ভারে পাঠানো
             const res = await axiosSecure.post("/products", newProduct);
             if (res.data.insertedId || res.data.acknowledged) {
                 toast.success("Product added successfully!");
-                reset();
+                reset(); // ✅ react-hook-form এর reset ফাংশন
             }
         } catch (err) {
             console.error(err);
@@ -71,12 +72,13 @@ const AddProduct = () => {
 
             <div className="mb-6">
                 <h2 className="text-2xl font-bold text-slate-800">Add New Product</h2>
-                <p className="text-sm text-slate-500">Fill in the details to add a new garment item.</p>
+                <p className="text-sm text-slate-500">Fill in the details to add a new garment item to inventory.</p>
             </div>
 
+            {/* ✅ ৪. handleSubmit ব্যবহার করা হলো */}
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
 
-                {/* Name */}
+                {/* Product Name (Required) */}
                 <div className="form-control">
                     <label className="label"><span className="label-text font-medium">Product Name*</span></label>
                     <input
@@ -89,13 +91,18 @@ const AddProduct = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Buyer */}
+                    {/* Buyer Name */}
                     <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Buyer Name</span></label>
-                        <input {...register("buyerName")} type="text" placeholder="e.g. H&M" className="input input-bordered w-full" />
+                        <input
+                            {...register("buyerName")}
+                            type="text"
+                            placeholder="e.g. H&M"
+                            className="input input-bordered w-full"
+                        />
                     </div>
 
-                    {/* Category */}
+                    {/* Category (Required) */}
                     <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Category*</span></label>
                         <select
@@ -113,19 +120,26 @@ const AddProduct = () => {
                     </div>
                 </div>
 
-                {/* Image */}
+                {/* Image URL */}
                 <div className="form-control">
                     <label className="label"><span className="label-text font-medium">Image URL</span></label>
-                    <input {...register("image")} type="text" placeholder="https://..." className="input input-bordered w-full" />
+                    <input
+                        {...register("image")}
+                        type="text"
+                        placeholder="https://..."
+                        className="input input-bordered w-full"
+                    />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {/* Price */}
+                    {/* Price (Required) */}
                     <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Price ($)*</span></label>
                         <input
                             {...register("price", { required: "Price is required", min: 1 })}
-                            type="number" step="0.01" placeholder="0.00"
+                            type="number"
+                            step="0.01"
+                            placeholder="0.00"
                             className="input input-bordered w-full"
                         />
                         {errors.price && <span className="text-red-500 text-xs mt-1">{errors.price.message}</span>}
@@ -134,13 +148,23 @@ const AddProduct = () => {
                     {/* Min Qty */}
                     <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Min Order Qty</span></label>
-                        <input {...register("minQty")} type="number" placeholder="100" className="input input-bordered w-full" />
+                        <input
+                            {...register("minQty")}
+                            type="number"
+                            placeholder="100"
+                            className="input input-bordered w-full"
+                        />
                     </div>
 
-                    {/* Available */}
+                    {/* Available Stock */}
                     <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Available Stock</span></label>
-                        <input {...register("availableQty")} type="number" placeholder="5000" className="input input-bordered w-full" />
+                        <input
+                            {...register("availableQty")}
+                            type="number"
+                            placeholder="5000"
+                            className="input input-bordered w-full"
+                        />
                     </div>
                 </div>
 
@@ -153,21 +177,14 @@ const AddProduct = () => {
                     </select>
                 </div>
 
-                {/* ✅ DESCRIPTION FIELD (NEW) */}
-                <div className="form-control">
-                    <label className="label"><span className="label-text font-medium">Description*</span></label>
-                    <textarea
-                        {...register("description", { required: "Description is required" })}
-                        className="textarea textarea-bordered h-24"
-                        placeholder="Write detailed product description here..."
-                    ></textarea>
-                    {errors.description && <span className="text-red-500 text-xs mt-1">{errors.description.message}</span>}
-                </div>
-
-                {/* Checkbox */}
+                {/* Show On Home (Checkbox) */}
                 <div className="form-control">
                     <label className="cursor-pointer flex items-center gap-3 p-2 border rounded-lg hover:bg-slate-50">
-                        <input {...register("showOnHome")} type="checkbox" className="checkbox checkbox-primary" />
+                        <input
+                            {...register("showOnHome")}
+                            type="checkbox"
+                            className="checkbox checkbox-primary"
+                        />
                         <span className="label-text font-medium">Show this product on Home Page</span>
                     </label>
                 </div>

@@ -1,9 +1,10 @@
 import React from "react";
+// import useAxiosSecure from "../Hook/useAxiosSecure"; // ✅ পাথ ঠিক করা হয়েছে (স্পেস নেই)
+// import useAuth from "../Hook/useAuth"; // ✅ পাথ ঠিক করা হয়েছে
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../Hook /useAxiosSecure";
-import useAuth from "../Hook /useAuth";
 
 const AddProduct = () => {
     const axiosSecure = useAxiosSecure();

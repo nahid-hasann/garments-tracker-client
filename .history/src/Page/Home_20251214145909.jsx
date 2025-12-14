@@ -167,11 +167,11 @@ const Home = () => {
                             <motion.div
                                 key={product._id}
                                 variants={cardVariants}
-                                className="bg-white rounded-xl shadow-sm border border-[#00aae2] p-3"
+                                className="bg-white rounded-xl shadow-sm border p-3"
                             >
-                                <div className="h-40 bg-slate-100 overflow-hidden">
+                                <div className="h-32 bg-slate-100 overflow-hidden">
                                     {product.image ? (
-                                        <img src={product.image} className="w-full h-full object-cover cover" />
+                                        <img src={product.image} className="w-[100px] h-full object-cover cover" />
                                     ) : (
                                         <div className="flex items-center justify-center text-xs text-slate-400">
                                             No Image

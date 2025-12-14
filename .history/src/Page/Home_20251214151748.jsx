@@ -167,7 +167,7 @@ const Home = () => {
                             <motion.div
                                 key={product._id}
                                 variants={cardVariants}
-                                className="bg-white rounded-xl shadow-sm border border-[#00aae2] p-3"
+                                className="bg-white rounded-xl shadow-sm border  p-3"
                             >
                                 <div className="h-40 bg-slate-100 overflow-hidden">
                                     {product.image ? (

@@ -1,0 +1,37 @@
+import axios from "axios";
+import { useEffect } from "react";
+import useAuth from "../Hook /useAuth";
+import { useNavigate } from "react-router-dom";
+
+// বেস ইউআরএল এখানেও ঠিক রাখা ভালো, যদিও main.jsx এ সেট করেছেন
+const axiosSecure = axios.create({
+    baseURL: 'https://garments-tracker-server.vercel.app/',
+    withCredentials: true
+});
+
+const useAxiosSecure = () => {
+    const { logOut } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        axiosSecure.interceptors.response.use(res => {
+            return res;
+        }, async error => {
+            // ✅ ফিক্স ১: error.response সরাসরি প্রিন্ট না করে পুরো error প্রিন্ট করুন
+            // এতে বোঝা যাবে এটা Network Error নাকি অন্য কিছু
+            console.log('Interceptor Error:', error);
+
+            // ✅ ফিক্স ২: আগে চেক করুন error.response আছে কিনা
+            if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+                console.log('Logging out user due to auth error...');
+                await logOut();
+                navigate('/login');
+            }
+            return Promise.reject(error);
+        })
+    }, [logOut, navigate])
+
+    return axiosSecure;
+};
+
+export default useAxiosSecure;

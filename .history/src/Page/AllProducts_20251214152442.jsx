@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import useAxiosSecure from "../Hook /useAxiosSecure";
-// import useAxiosSecure from "../Hook/useAxiosSecure";
+import useAxiosSecure from "../Hook/useAxiosSecure";
 
 const AllProducts = () => {
     const [products, setProducts] = useState([]);

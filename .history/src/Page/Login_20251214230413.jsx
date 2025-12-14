@@ -22,7 +22,7 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
         signIn(email, password)
-            .then( () => {
+            .then(userCredential => {
                 // console.log(userCredential.user);
                 navigate('/');
                 toast.success("Login successful!");

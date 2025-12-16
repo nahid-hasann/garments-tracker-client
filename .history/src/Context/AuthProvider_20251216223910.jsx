@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser);
 
             if (currentUser) {
-
+              
                 try {
                     const res = await axiosPublic.get(`/users?email=${currentUser.email}`);
                     setDbUser(res.data);
@@ -54,7 +54,7 @@ const AuthProvider = ({ children }) => {
                     console.error("Failed to fetch user data", error);
                 }
 
-
+               
                 const userInfo = { email: currentUser.email };
                 try {
                     await axiosPublic.post('/jwt', userInfo);
@@ -63,7 +63,7 @@ const AuthProvider = ({ children }) => {
                 }
 
             } else {
-
+               
                 try {
                     await axiosPublic.post('/logout', {});
                 } catch (error) {
@@ -74,7 +74,7 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
         });
         return () => unsubscribe();
-    }, []);
+    }, []); 
 
     const authInfo = {
         user,
@@ -88,7 +88,7 @@ const AuthProvider = ({ children }) => {
         userStatus: dbUser?.status
     }
 
-
+    // 🔥 FIX 3: .Provider মিসিং ছিল, এটা দিতে হবে
     return <AuthContext.Provider value={authInfo}> {children} </AuthContext.Provider>
 };
 

@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const provider = new GoogleAuthProvider();
 
-
+// 🔥 FIX 1: এটাকে কম্পোনেন্টের বাইরে নিয়ে আসা হয়েছে (Most Important)
 const axiosPublic = axios.create({
     baseURL: 'https://garments-tracker-server.vercel.app',
     withCredentials: true
@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser);
 
             if (currentUser) {
-
+                // Get User Data
                 try {
                     const res = await axiosPublic.get(`/users?email=${currentUser.email}`);
                     setDbUser(res.data);
@@ -54,7 +54,7 @@ const AuthProvider = ({ children }) => {
                     console.error("Failed to fetch user data", error);
                 }
 
-
+                // Get Token
                 const userInfo = { email: currentUser.email };
                 try {
                     await axiosPublic.post('/jwt', userInfo);
@@ -63,7 +63,7 @@ const AuthProvider = ({ children }) => {
                 }
 
             } else {
-
+                // Remove Token
                 try {
                     await axiosPublic.post('/logout', {});
                 } catch (error) {
@@ -74,7 +74,7 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
         });
         return () => unsubscribe();
-    }, []);
+    }, []); // 🔥 FIX 2: এখানে ফাঁকা অ্যারে দিতে হবে, [axiosPublic] দেওয়া যাবে না।
 
     const authInfo = {
         user,
@@ -88,7 +88,7 @@ const AuthProvider = ({ children }) => {
         userStatus: dbUser?.status
     }
 
-
+    // 🔥 FIX 3: .Provider মিসিং ছিল, এটা দিতে হবে
     return <AuthContext.Provider value={authInfo}> {children} </AuthContext.Provider>
 };
 
